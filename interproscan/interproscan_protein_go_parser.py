@@ -1,6 +1,25 @@
-# Configuração dos arquivos
-arquivo_entrada = "/home/dalvarenga/Documentos/4_leishmania_targets/2_go_analysis/interproscan_proteins_GO.tab"
-arquivo_saida = "/home/dalvarenga/Documentos/4_leishmania_targets/2_go_analysis/proteins_go_processed.tsv"
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Script: processa_GO_terms.py
+Descrição:
+  Lê um arquivo com proteínas e anotações de GO (ex: gerado pelo InterProScan),
+  separa cada GO term, classifica em BP/MF/CC e salva um novo arquivo formatado.
+  Agora, o script pede ao usuário os caminhos de entrada e saída na execução.
+"""
+
+# === Importante: não precisa de bibliotecas externas ===
+
+# Solicita os caminhos interativamente
+arquivo_entrada = input("📂 Digite o caminho do arquivo de entrada (.tab): ").strip()
+arquivo_saida = input("💾 Digite o caminho do arquivo de saída (.tsv): ").strip()
+
+# Exemplo de arquivo de entrada:
+# LINF_200007600-T1       GO:0000027(InterPro)|GO:0005634(InterPro)|GO:0016887(InterPro)
+# LINF_200007600-T1       GO:0000027(InterPro)|GO:0005634(InterPro)|GO:0016887(InterPro)
+# LINF_200007600-T1       GO:0000027(InterPro)|GO:0005634(InterPro)|GO:0016887(InterPro)
+# LINF_200007600-T1       GO:0000027(PANTHER)|GO:0000055(PANTHER)|GO:0005634(PANTHER)|GO:0030687(PANTHER)
+
 
 # Abrir arquivos
 with open(arquivo_entrada, 'r') as entrada, open(arquivo_saida, 'w') as saida:
@@ -42,7 +61,7 @@ with open(arquivo_entrada, 'r') as entrada, open(arquivo_saida, 'w') as saida:
                     categoria = 'BP'
                 elif go_num == '0005575':
                     categoria = 'CC'
-                # Determinar por intervalo numérico
+                # Determinar por intervalo numérico aproximado
                 elif primeiro_digito == '0':
                     categoria = 'BP'
                 elif primeiro_digito == '1':
@@ -58,5 +77,5 @@ with open(arquivo_entrada, 'r') as entrada, open(arquivo_saida, 'w') as saida:
             except (IndexError, AttributeError):
                 continue
 
-print("Processamento concluído!")
-print(f"Resultados salvos em: {arquivo_saida}")
+print("\n✅ Processamento concluído com sucesso!")
+print(f"📄 Resultados salvos em: {arquivo_saida}")
