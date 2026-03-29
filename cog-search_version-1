@@ -1,0 +1,17 @@
+list1 = []
+list2 = []
+list3 = []
+
+for i in open('protein_id-to-COG_dictionary'):
+    linha_itens = i.split('\t')
+    list1.append(linha_itens[0])
+    list2.append(linha_itens[1].rstrip())
+
+for j in open('DE-DOWN_Prot-ID'):
+    linha_itens2 = j.split('\t')
+    list3.append(linha_itens2[1].rstrip())
+
+for k in range(len(list3)):
+    for u in range(len(list1)):
+        if list3[k] == list1[u]:
+                print(list3[k] + "\t" + list2[u])
